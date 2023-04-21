@@ -1,2 +1,2 @@
 # DBDConfigurations
-This tool will be used for a simple function, change settings of the GameUserSettings (FPS and others) without you having to go to that file yourself.
+This tool will be used for a simple function, change settings like FPS, resolutions and others from GameUserSettings.ini without you having to go to that file yourself.
