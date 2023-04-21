@@ -1,0 +1,61 @@
+@echo off
+set name=DBDConfigurations
+set version=0.1
+title %name% v%version% (by Neinndall)
+
+:menu_start
+echo Welcome to my new tool, this tool will be used for a simple function, change settings of the "GameUserSettings" 
+echo file, without you having to go to that file yourself, I hope you like it.
+echo.
+echo Press ENTER to start!
+pause>nul
+cls
+
+:file_path
+echo Default Path: C:\Users\USER\AppData\Local\DeadByDaylight\Saved\Config\WindowsClient
+set /p "file_path=Introduce path of the file: "
+echo.
+
+:file
+echo Default File: GameUserSettings.ini
+set /p "file=Introduce the name eof the file to edite: "
+echo.
+
+:full_path
+set "full_path=%file_path%\%file%"
+echo This is your full path: %full_path%
+echo.
+
+:check_full_path
+if not exist "%full_path%" (
+echo The file entered does not exist
+goto file
+)
+
+:search_string
+set /p "search=Enter what you want to modify: "
+echo.
+echo Search results:
+echo -------------------------
+type "%full_path%" | find /i "%search%"
+echo -------------------------
+
+:value_replace
+set /p "value_replace=Enter the value to replace: "
+echo.
+
+:new_value
+set /p "new_value=Enter the new value: "
+echo.
+
+:check_value
+findstr /i /C:"%value_replace%" "%full_path%" >nul
+if %errorlevel% equ 0 (
+echo The value does not exist in the file
+goto valor_reemplazar
+)
+
+:ejecucion
+powershell -Command "(gc %full_path%) -replace '%value_replace%', '%new_value%' | Out-File %full_path%"
+echo The value has been replaced successfully. Finished!
+pause>nul
